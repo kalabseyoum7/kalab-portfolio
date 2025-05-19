@@ -18,13 +18,16 @@
       color: var(--black);
       background: var(--white);
     }
+
     a {
       color: var(--orange);
       text-decoration: none;
     }
+
     a:hover {
       text-decoration: underline;
     }
+
     h1, h2 {
       margin: 0;
     }
@@ -40,22 +43,27 @@
       flex-direction: row-reverse;
       border: 4px solid var(--orange);
     }
+
     .intro-text {
       max-width: 600px;
     }
+
     .intro-text h1 {
       font-size: 2.8rem;
       margin-bottom: 20px;
       color: var(--orange);
     }
+
     .intro-text p {
       font-size: 1.1rem;
       line-height: 1.6;
       color: var(--white);
     }
+
     .header-illustration {
       width: 300px;
     }
+
     .header-illustration img {
       width: 100%;
       border-radius: 12px;
@@ -67,6 +75,7 @@
       border: 4px solid var(--orange);
       margin-bottom: 40px;
     }
+
     .section-title {
       font-size: 2rem;
       color: var(--orange);
@@ -78,12 +87,14 @@
       color: var(--white);
       border: 4px solid var(--orange);
     }
+
     .about-content {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       margin-top: 40px;
     }
+
     .about-blocks-container {
       display: flex;
       justify-content: space-between;
@@ -103,6 +114,7 @@
       width: 30%;
       min-width: 200px;
     }
+
     .about-block h4 {
       color: var(--orange);
       margin-bottom: 10px;
@@ -116,9 +128,11 @@
       background: var(--white);
       border: 4px solid var(--orange);
     }
+
     .contact-form {
       margin-top: 30px;
     }
+
     .contact-form input,
     .contact-form textarea {
       width: 100%;
@@ -127,6 +141,7 @@
       border: 1px solid #ccc;
       border-radius: 8px;
     }
+
     .contact-form button {
       background: var(--orange);
       color: var(--white);
@@ -135,6 +150,7 @@
       border-radius: 8px;
       cursor: pointer;
     }
+
     .contact-form button:hover {
       background: #e05b00;
     }
@@ -194,6 +210,7 @@
     <form class="contact-form">
       <input type="text" name="name" placeholder="First Name">
       <input type="text" name="lastname" placeholder="Last Name">
+      <input type="email" name="email" placeholder="Your Email">
       <textarea name="message" rows="5" placeholder="Tell me about your project..."></textarea>
       <button type="submit">Send Message</button>
     </form>
@@ -208,6 +225,60 @@
   <footer>
     <p>&copy; 2025 Kalab Zewdagegnew. All rights reserved.</p>
   </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Form validation and thank-you message
+    document.querySelector('.contact-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.querySelector('[name="name"]').value.trim();
+      const lastname = document.querySelector('[name="lastname"]').value.trim();
+      const email = document.querySelector('[name="email"]').value.trim();
+      const message = document.querySelector('[name="message"]').value.trim();
+
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+      if (!name || !lastname || !email || !message) {
+        alert('Please fill in all fields.');
+        return;
+      }
+
+      if (!emailPattern.test(email)) {
+        alert('Please enter a valid email address.');
+        return;
+      }
+
+      alert('Message sent successfully!');
+
+      // Replace form with a thank-you message
+      document.querySelector('.contact-form').innerHTML = `
+        <p>Thanks, ${name}! Your message has been sent.</p>
+      `;
+    });
+
+    // Dark mode toggle
+    const toggleButton = document.createElement('button');
+    toggleButton.textContent = '🌙 Toggle Dark Mode';
+    toggleButton.style.cssText = 'position:fixed;bottom:20px;right:20px;padding:10px 15px;background:#f3978d;color:white;border:none;border-radius:8px;cursor:pointer;z-index:999;';
+    document.body.appendChild(toggleButton);
+
+    let dark = false;
+
+    toggleButton.addEventListener('click', () => {
+      dark = !dark;
+      document.body.style.background = dark ? '#1e1e1e' : '#fff';
+      document.body.style.color = dark ? '#f0f0f0' : '#272525';
+
+      document.querySelectorAll('header, .section, footer').forEach(el => {
+        el.style.background = dark ? '#2e2e2e' : '';
+        el.style.color = dark ? '#f0f0f0' : '';
+        el.style.borderColor = '#f3978d';
+      });
+
+      toggleButton.textContent = dark ? '☀️ Toggle Light Mode' : '🌙 Toggle Dark Mode';
+    });
+  </script>
 
 </body>
 </html>
